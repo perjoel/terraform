@@ -3,6 +3,12 @@ variable "tenant_id" {
   description = "Tenant ID of the Azure environment"
 }
 
+variable "brand_short" {
+  type = string
+  description = "Short name of the brand/client, eg. wal, cor, sec"
+  default = "b1"
+}
+
 variable "location" {
   default     = "swedencentral"
   description = "Location of the deployment"
@@ -28,8 +34,9 @@ variable "environment" {
 }
 
 variable "application_name" {
-  default = "joeltest"
   type    = string
+  description = "Name of the application"
+  default = "app1"
 }
 
 variable "tags" {
@@ -41,6 +48,12 @@ variable "tags" {
     env   = "Dev"
     owner = "Joel"
   }
+}
+
+variable "vnet_address_space" {
+  type        = set(string)
+  description = "Set of strings containing the vnet address space."
+  default     = ["10.1.0.0/24"]
 }
 
 variable "keyvault_rbac" {
@@ -72,7 +85,7 @@ variable "secrets_value" {
   type      = map(string)
   sensitive = true
   default = {
-    testSecret = "SecretTest"
+    testSecret  = "SecretTest"
     testSecret2 = "SecretTest2"
   }
 }
