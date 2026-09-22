@@ -1,0 +1,25 @@
+
+!! First creation of the remote backends, once per environment
+
+az account set --subscription Homelab-dev
+terraform init -backend-config=environments/dev-sec-backend.hcl -reconfigure
+terraform plan -var-file=environments/dev-sec.tfvars
+terraform apply --var-file="environments/dev-sec.tfvars"
+
+
+
+
+
+!! Use these commands to switch between environments, needed when using local state for bootstraping.
+
+az account set --subscription Homelab-dev
+terraform init -backend-config=environments/dev-sec-backend.hcl -reconfigure
+terraform plan -var-file=environments/dev-sec.tfvars
+
+az account set --subscription Homelab-test
+terraform init -backend-config=environments/test-sec-backend.hcl -reconfigure
+terraform plan -var-file=environments/test-sec.tfvars
+
+az account set --subscription Homelab-prod
+terraform init -backend-config=environments/prod-sec-backend.hcl -reconfigure
+terraform plan -var-file=environments/prod-sec.tfvars
