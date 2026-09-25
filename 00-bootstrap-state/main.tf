@@ -2,7 +2,7 @@ resource "azurerm_resource_group" "tfstate" {
   name     = "rg${var.resource_number}tfstate${var.location_short}${var.environment}"
   location = var.location
   tags = {
-    "createdby"     = "terraform"
+    "createdby"   = "terraform"
     "environment" = var.environment
   }
 }
@@ -19,7 +19,7 @@ resource "azurerm_storage_account" "tfstate" {
   min_tls_version                 = "TLS1_2"
   sftp_enabled                    = false
   tags = {
-    "createdby"     = "terraform"
+    "createdby"   = "terraform"
     "environment" = var.environment
   }
 }

@@ -1,17 +1,19 @@
+## general variables
+
 variable "environment" {
   description = "dev, test or prod"
-  type = string
-  default = "dev"
+  type        = string
+  default     = "dev"
 }
 
 variable "location" {
   description = "location/region of the resource"
-  type = string
+  type        = string
 }
 
 variable "location_short" {
   description = "short version of the location"
-  type = string
+  type        = string
 }
 
 variable "resource_number" {
@@ -20,10 +22,22 @@ variable "resource_number" {
 
 variable "application_name" {
   description = "name of the application, used for resource and rg names"
-  type = string
+  type        = string
 }
 
 variable "tags" {
   description = "Tags"
-  type = map(string)
+  type        = map(string)
+}
+
+## vnet variables
+
+variable "vnet_address_space" {
+  description = "list of the vnet address space"
+  type        = list(string)
+}
+
+variable "subnet_address_space" {
+  description = "list of the subnet address space"
+  type        = list(string)
 }
