@@ -16,7 +16,7 @@ jobs:
   check-code:
     environment:
       name: dev
-    permissions: 
+    permissions:
       id-token: write
     runs-on: ubuntu-latest
     defaults:
@@ -55,3 +55,7 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
