@@ -8,7 +8,6 @@ on:
       - ./01-basics/**
 
   workflow_dispatch:
-
 env:
   TF_LOG: INFO
   TF_INPUT: false
@@ -22,7 +21,6 @@ jobs:
       run:
         shell: bash
         working-directory: ./01-basics/environments/dev
-
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
@@ -32,15 +30,20 @@ jobs:
         with:
           terraform_version: ${{ secrets.TERRAFORM_VERSION }}
 
+      - name: Azure CLI Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+
       - name: Terraform Init
         id: init
         env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
           CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
+
         run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
 
       - name: Terraform Format
