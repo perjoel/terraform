@@ -16,6 +16,8 @@ jobs:
   check-code:
     environment:
       name: dev
+    permissions: 
+      id-token: write
     runs-on: ubuntu-latest
     defaults:
       run:
