@@ -28,3 +28,12 @@ module "subnet" {
   virtual_network_name = module.vnet.vnet_name
   address_prefixes     = var.subnet_address_space
 }
+
+module "nsg" {
+  source         = "../../modules/nsg"
+  name           = local.nsg_name
+  rg_name        = module.vnet_rg.rg_name
+  location       = var.location
+  security_rules = var.nsg_security_rules
+  tags           = var.tags
+}

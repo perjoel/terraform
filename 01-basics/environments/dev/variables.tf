@@ -51,3 +51,32 @@ variable "subnet_address_space" {
   type        = list(string)
   default     = ["10.0.0.0/28", "10.0.1.0/28"]
 }
+
+
+## nsg rules
+variable "nsg_security_rules" {
+  description = "list of security rule objects"
+  type = list(object({
+    name                       = string
+    description                = optional(string)
+    priority                   = number
+    direction                  = string
+    access                     = string
+    protocol                   = string
+    source_port_range          = optional(string, "*")
+    destination_port_range     = optional(string)
+    destination_port_ranges    = optional(string)
+    source_address_prefix      = optional(string, "*")
+    destination_address_prefix = optional(string, "*")
+  }))
+  default = [
+    {
+      name                   = "rule1"
+      description            = "test1"
+      priority               = 100
+      direction              = "Inbound"
+      access                 = "Allow"
+      protocol               = "Tcp"
+      destination_port_range = "443"
+  }]
+}
